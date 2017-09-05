@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">dialog_test</string>
+    <string name="title_activity_login">Sign in</string>
+</resources>
