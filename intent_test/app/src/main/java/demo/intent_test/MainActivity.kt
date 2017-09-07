@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import android.R.attr.data
 import android.support.v4.app.NotificationCompat.getExtras
-
+import android.widget.EditText
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         findViewById(R.id.btnTest).setOnClickListener {
             val intent = Intent()
             intent.setClass(this, Main2Activity::class.java)
-            intent.putExtra("test", "Hello World (From Activity 1)")
+            intent.putExtra("test", (findViewById(R.id.txtMsg) as EditText).text.toString())
             startActivityForResult(intent, REQUEST_CODE)
         }
     }

@@ -6,6 +6,7 @@ import android.widget.TextView
 import android.support.v4.app.NotificationCompat.getExtras
 import android.content.Intent
 import android.widget.Button
+import android.widget.EditText
 
 
 class Main2Activity : AppCompatActivity() {
@@ -27,7 +28,7 @@ class Main2Activity : AppCompatActivity() {
         val btnTest = findViewById(R.id.btnTest) as Button
         btnTest.setOnClickListener({
             val intent2 = Intent()
-            intent2.putExtra("back", "Back Data (From Activity 2)")
+            intent2.putExtra("back", (findViewById(R.id.txtMsg) as EditText).text.toString())
             setResult(RESULT_CODE, intent2)
             finish()
         })
