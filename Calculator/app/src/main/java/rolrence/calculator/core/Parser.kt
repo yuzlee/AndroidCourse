@@ -20,14 +20,6 @@ class Parser constructor(expText: String) {
 
     fun tokenList() = parseAll().toMutableList()
 
-//    fun tokenList(): MutableList<Token> {
-//        val list = mutableListOf<Token>()
-//        for (t in parseAll()) {
-//            list.add(t)
-//        }
-//        return list
-//    }
-
     fun parseAll(): Iterable<Token> {
         val seq = buildSequence {
             while (true) {

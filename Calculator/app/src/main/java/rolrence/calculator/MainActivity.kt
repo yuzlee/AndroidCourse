@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 var str = "result = ${Expression.eval(exp)}\n"
                 txtResult.setText(str)
-            } catch (e: ParsingException) {
+            } catch (e: Exception) {
                 txtResult.setText(e.message)
             }
         })

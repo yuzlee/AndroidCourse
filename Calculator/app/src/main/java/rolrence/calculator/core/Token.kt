@@ -30,4 +30,6 @@ class Token constructor(kind: TokenKind, value: String) {
         get
 
     constructor(kind: TokenKind): this(kind, "")
+
+    override fun toString() = if (!value.isEmpty()) "$kind=$value" else "$kind"
 }

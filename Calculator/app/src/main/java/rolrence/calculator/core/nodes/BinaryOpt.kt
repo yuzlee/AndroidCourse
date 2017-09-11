@@ -4,6 +4,7 @@ import rolrence.calculator.core.IValue
 import rolrence.calculator.core.Rational
 import rolrence.calculator.core.Number
 import rolrence.calculator.core.TokenKind
+import rolrence.calculator.core.exceptions.ValueError
 
 
 /**
@@ -13,13 +14,13 @@ import rolrence.calculator.core.TokenKind
 class BinaryOpt {
     companion object {
         val _precedence = mapOf(
-                Pair(TokenKind.PlusToken, 1),
-                Pair(TokenKind.MinusToken, 1),
+                TokenKind.PlusToken to 1,
+                TokenKind.MinusToken to 1,
 
-                Pair(TokenKind.AsteriskToken, 2),
-                Pair(TokenKind.SlashToken, 2),
+                TokenKind.AsteriskToken to 2,
+                TokenKind.SlashToken to 2,
 
-                Pair(TokenKind.AsteriskAsteriskToken, 3)
+                TokenKind.AsteriskAsteriskToken to 3
         )
 
         fun getPrecedence(kind: TokenKind): Int {
@@ -29,57 +30,60 @@ class BinaryOpt {
             return -1
         }
 
-        fun add(left: IValue, right: IValue): IValue? {
+        fun add(left: IValue, right: IValue): IValue {
             if (left is Rational || right is Rational) {
                 return evaluate<Rational>(left, right) { l, r -> l + r }
             } else if (left is Number || right is Number) {
                 return evaluate<Number>(left, right) { l, r -> l + r }
-            } else {
-                return null
             }
+            throw ValueError("invalid value [$left, $right]")
         }
 
-        fun substract(left: IValue, right: IValue): IValue? {
+        fun substract(left: IValue, right: IValue): IValue {
             if (left is Rational || right is Rational) {
                 return evaluate<Rational>(left, right) { l, r -> l - r }
             } else if (left is Number || right is Number) {
                 return evaluate<Number>(left, right) { l, r -> l - r }
             }
-            return null
+            throw ValueError("invalid value [$left, $right]")
         }
 
-        fun multiply(left: IValue, right: IValue): IValue? {
+        fun multiply(left: IValue, right: IValue): IValue {
             if (left is Rational || right is Rational) {
                 return evaluate<Rational>(left, right) { l, r -> l * r }
             } else if (left is Number || right is Number) {
                 return evaluate<Number>(left, right) { l, r -> l * r }
             }
-            return null
+            throw ValueError("invalid value [$left, $right]")
         }
 
-        fun divide(left: IValue, right: IValue): IValue? {
+        fun divide(left: IValue, right: IValue): IValue {
             if (left is Rational || right is Rational) {
                 return evaluate<Rational>(left, right) { l, r -> l / r }
             } else if (left is Number || right is Number) {
                 return evaluate<Number>(left, right) { l, r -> l / r }
             }
-            return null
+            throw ValueError("invalid value [$left, $right]")
         }
 
-        fun pow(left: IValue, right: IValue): IValue? {
+        fun pow(left: IValue, right: IValue): IValue {
             val e = right.value
             if (left is Rational) {
                 return left pow e.toInt()
             } else if (left is Number) {
                 return left pow e
             }
-            return null
+            throw ValueError("invalid value [$left]")
         }
 
         fun <T> evaluate(left: IValue, right: IValue, opt: (T, T) -> IValue): IValue {
-            val l = left as T
-            val r = right as T
-            return opt(l, r)
+            try {
+                val l = left as T
+                val r = right as T
+                return opt(l, r)
+            } catch (e: Exception) {
+                throw ValueError("invalid value [$left, $right]")
+            }
         }
     }
 }

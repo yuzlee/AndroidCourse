@@ -9,8 +9,8 @@ import rolrence.calculator.core.Number
 class Constant {
     companion object {
         val _constants = mapOf(
-                Pair("pi", Number(Math.PI)),
-                Pair("e", Number(Math.E))
+                "pi" to Number(Math.PI),
+                "e" to Number(Math.E)
         )
 
         fun get(name: String) = _constants.get(name)!!

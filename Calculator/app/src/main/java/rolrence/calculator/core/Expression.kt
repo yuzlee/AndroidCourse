@@ -1,5 +1,7 @@
 package rolrence.calculator.core
 
+import rolrence.calculator.core.exceptions.ParsingException
+import rolrence.calculator.core.exceptions.SyntaxError
 import rolrence.calculator.core.nodes.BinaryOpt
 import rolrence.calculator.core.nodes.Constant
 
@@ -39,10 +41,10 @@ class Expression constructor(val tokens: MutableList<Token>) {
         if (!canEval()) {
             return EndNode()
         }
-        return evalExp()!!
+        return evalExp()
     }
 
-    fun evalExp(currentPrecedence: Int = 0): IValue? {
+    fun evalExp(currentPrecedence: Int = 0): IValue {
         val value = evalUnaryOrValueExp()
         return evalBinaryExp(currentPrecedence, value)
     }
@@ -58,12 +60,12 @@ class Expression constructor(val tokens: MutableList<Token>) {
                 return -evalUnaryOrValueExp()
             }
             else -> {
-                return evalValueExp()!!
+                return evalValueExp()
             }
         }
     }
 
-    fun evalValueExp(): IValue? {
+    fun evalValueExp(): IValue {
         when(token.kind) {
             TokenKind.NumericLiteral -> {
                 return evalNumeric()
@@ -71,11 +73,14 @@ class Expression constructor(val tokens: MutableList<Token>) {
             TokenKind.Function -> {
                 return evalFunction()
             }
+            TokenKind.Constant -> {
+                return evalConstant()
+            }
             TokenKind.OpenParenToken -> {
                 return evalParentesizedExp()
             }
             else -> {
-                return null
+               throw SyntaxError("invalid value expression [$token]")
             }
         }
     }
@@ -103,38 +108,37 @@ class Expression constructor(val tokens: MutableList<Token>) {
             }
             val _token = token
             nextToken()
-            left = evalSimpleBinaryExp(left, _token.kind, evalExp(new)!!)!!
+            left = evalSimpleBinaryExp(left, _token.kind, evalExp(new))
         }
         return left
     }
 
-    fun evalSimpleBinaryExp(left: IValue, oper: TokenKind, right: IValue): IValue? {
+    fun evalSimpleBinaryExp(left: IValue, oper: TokenKind, right: IValue): IValue {
         when(oper) {
             TokenKind.PlusToken -> return BinaryOpt.add(left, right)
             TokenKind.MinusToken -> return BinaryOpt.substract(left, right)
             TokenKind.AsteriskToken -> return BinaryOpt.multiply(left, right)
             TokenKind.SlashToken -> return BinaryOpt.divide(left, right)
             TokenKind.AsteriskAsteriskToken -> return BinaryOpt.pow(left, right)
-            else -> return null
+            else -> throw SyntaxError("invalid binary operator [$oper]")
         }
     }
 
     fun evalParentesizedExp(): IValue {
         nextToken()
         val res = evalExp()
-        var re: IValue? = null
         if (token.kind == TokenKind.CloseParentToken) {
             nextToken()
-            re = res
+            return res
         }
-        return re!!
+        throw SyntaxError("can not close the scope, need a \')\' [$token]")
     }
 
     fun evalFunction(): IValue {
         val function = FunctionFactory.createFunction(token.value)
         nextToken()
         val value = evalUnaryOrValueExp()
-        return function!!.execute(value)
+        return function.execute(value)
     }
 
     companion object {
