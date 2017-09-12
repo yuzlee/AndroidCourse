@@ -1,9 +1,9 @@
 package rolrence.calculator.core
 
-import rolrence.calculator.core.exceptions.ParsingException
 import rolrence.calculator.core.exceptions.SyntaxError
 import rolrence.calculator.core.nodes.BinaryOpt
 import rolrence.calculator.core.nodes.Constant
+import rolrence.calculator.core.nodes.FunctionFactory
 
 /**
  * Created by Rolrence on 9/11/2017.
@@ -76,7 +76,7 @@ class Expression constructor(val tokens: MutableList<Token>) {
             TokenKind.Constant -> {
                 return evalConstant()
             }
-            TokenKind.OpenParenToken -> {
+            TokenKind.OpenParentToken -> {
                 return evalParentesizedExp()
             }
             else -> {
@@ -103,9 +103,7 @@ class Expression constructor(val tokens: MutableList<Token>) {
             val new = BinaryOpt.getPrecedence(token.kind)
             val consumeCurrentOperator = new > currentPrecedence
 
-            if (!consumeCurrentOperator) {
-                break
-            }
+            if (!consumeCurrentOperator) { break }
             val _token = token
             nextToken()
             left = evalSimpleBinaryExp(left, _token.kind, evalExp(new))

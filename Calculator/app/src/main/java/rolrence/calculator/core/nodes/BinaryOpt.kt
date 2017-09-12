@@ -1,8 +1,8 @@
 package rolrence.calculator.core.nodes
 
 import rolrence.calculator.core.IValue
-import rolrence.calculator.core.Rational
 import rolrence.calculator.core.Number
+import rolrence.calculator.core.Rational
 import rolrence.calculator.core.TokenKind
 import rolrence.calculator.core.exceptions.ValueError
 

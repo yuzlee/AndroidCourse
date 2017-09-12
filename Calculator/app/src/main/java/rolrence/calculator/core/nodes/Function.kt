@@ -1,7 +1,9 @@
-package rolrence.calculator.core
+package rolrence.calculator.core.nodes
 
-import rolrence.calculator.core.exceptions.ParsingException
-import rolrence.calculator.core.nodes.*
+import rolrence.calculator.core.IFunction
+import rolrence.calculator.core.IValue
+import rolrence.calculator.core.Number
+import rolrence.calculator.core.exceptions.SyntaxError
 
 /**
  * Created by Rolrence on 9/11/2017.
@@ -28,10 +30,11 @@ class FunctionFactory {
 
         fun createFunction(name: String): IFunction {
             val name = name.toLowerCase()
-            if (_function.containsKey(name)) {
+            try {
                 return _function.get(name)!!
+            } catch (e: NullPointerException) {
+                throw SyntaxError("unknown function: $name")
             }
-            throw ParsingException("unknown function: $name")
         }
     }
 }

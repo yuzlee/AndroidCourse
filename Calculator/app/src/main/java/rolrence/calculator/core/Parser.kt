@@ -8,15 +8,15 @@ import kotlin.coroutines.experimental.buildSequence
  * Created by Rolrence on 9/11/2017.
  *
  */
-class Parser constructor(expText: String) {
-    var currentPosition: Int = 0
+class Parser constructor(expr: String) {
+    var pos: Int = 0
         get
         private set
 
-    val expText: String = expText
+    val expr: String = expr
         get
 
-    fun canParse() = currentPosition < expText.length
+    fun canParse() = pos < expr.length
 
     fun tokenList() = parseAll().toMutableList()
 
@@ -28,67 +28,83 @@ class Parser constructor(expText: String) {
                     return@buildSequence
                 }
 
-                val current = expText[currentPosition]
-                when(current) {
+                val current = expr[pos]
+                when (current) {
                     '+' -> {
-                        currentPosition++
+                        pos++
                         yield(Token(TokenKind.PlusToken))
                     }
                     '-' -> {
-                        currentPosition++
+                        pos++
                         yield(Token(TokenKind.MinusToken))
                     }
                     '*' -> {
-                        val nextChar = expText.elementAtOrNull(currentPosition + 1)
-                        currentPosition++
+                        val nextChar = expr.elementAtOrNull(pos + 1)
+                        pos++
                         if (nextChar == '*') {
-                            currentPosition++
+                            pos++
                             yield(Token(TokenKind.AsteriskAsteriskToken))
                         } else {
                             yield(Token(TokenKind.AsteriskToken))
                         }
                     }
                     '/' -> {
-                        currentPosition++
+                        pos++
                         yield(Token(TokenKind.SlashToken))
                     }
 
-                    '0' -> { yield(parseNumeric()) }
-                    '1' -> { yield(parseNumeric()) }
-                    '2' -> { yield(parseNumeric()) }
-                    '3' -> { yield(parseNumeric()) }
-                    '4' -> { yield(parseNumeric()) }
-                    '5' -> { yield(parseNumeric()) }
-                    '6' -> { yield(parseNumeric()) }
-                    '7' -> { yield(parseNumeric()) }
-                    '8' -> { yield(parseNumeric()) }
-                    '9' -> { yield(parseNumeric()) }
+                    '0' -> {
+                        yield(parseNumeric())
+                    }
+                    '1' -> {
+                        yield(parseNumeric())
+                    }
+                    '2' -> {
+                        yield(parseNumeric())
+                    }
+                    '3' -> {
+                        yield(parseNumeric())
+                    }
+                    '4' -> {
+                        yield(parseNumeric())
+                    }
+                    '5' -> {
+                        yield(parseNumeric())
+                    }
+                    '6' -> {
+                        yield(parseNumeric())
+                    }
+                    '7' -> {
+                        yield(parseNumeric())
+                    }
+                    '8' -> {
+                        yield(parseNumeric())
+                    }
+                    '9' -> {
+                        yield(parseNumeric())
+                    }
 
-                    '.' -> {}
+                    '.' -> {
+                    }
                     ',' -> {
-                        val nextChar = expText.elementAtOrNull(currentPosition + 1)
-                        if (nextChar != null) {
-                            if (nextChar in '0'..'9') {
-                                yield(parseNumeric())
-                            }
-                        } else {
-                            currentPosition++
-                        }
+                        val nextChar = expr.elementAtOrNull(pos + 1)
+                        if (isDigit(nextChar)) { yield(parseNumeric()) }
+                        else { pos++ }
                     }
 
                     '(' -> {
-                        currentPosition++
-                        yield(Token(TokenKind.OpenParenToken))
+                        pos++
+                        yield(Token(TokenKind.OpenParentToken))
                     }
                     ')' -> {
-                        currentPosition++
+                        pos++
                         yield(Token(TokenKind.CloseParentToken))
                     }
                     else -> {
                         if (isFunctionOrConstantNamePart(current)) {
                             yield(parseFunctionOrConstant())
                         } else if (current == ' ') {
-                            currentPosition++
+                            pos++
                         } else {
                             throw ParsingException("unknown symbol: $current")
                         }
@@ -100,54 +116,57 @@ class Parser constructor(expText: String) {
     }
 
     fun parseNumeric(): Token {
-        val start = currentPosition
-        currentPosition++
-        while (isDigit(expText.elementAtOrNull(currentPosition))) {
-            currentPosition++
+        val start = pos
+        pos++
+        while (isDigit(expr.elementAtOrNull(pos))) {
+            pos++
         }
-        if (expText.elementAtOrNull(currentPosition) == '.') {
-            currentPosition++
-            while (isDigit(expText.elementAtOrNull(currentPosition))) {
-                currentPosition++
+        if (expr.elementAtOrNull(pos) == '.') {
+            pos++
+            while (isDigit(expr.elementAtOrNull(pos))) {
+                pos++
             }
         }
-        var end = currentPosition
-        if (expText.elementAtOrNull(currentPosition) == 'E' || expText.elementAtOrNull(currentPosition) == 'e') {
-            currentPosition++
-            if (expText.elementAtOrNull(currentPosition) == '+' || expText.elementAtOrNull(currentPosition) == '-') {
-                currentPosition++
+        var end = pos
+        if (expr.elementAtOrNull(pos) == 'E' || expr.elementAtOrNull(pos) == 'e') {
+            pos++
+            if (expr.elementAtOrNull(pos) == '+' || expr.elementAtOrNull(pos) == '-') {
+                pos++
             }
-            if (isDigit(expText.elementAtOrNull(currentPosition))) {
-                currentPosition++
-                while (isDigit(expText.elementAtOrNull(currentPosition))) {
-                    currentPosition++
+            if (isDigit(expr.elementAtOrNull(pos))) {
+                pos++
+                while (isDigit(expr.elementAtOrNull(pos))) {
+                    pos++
                 }
-                end = currentPosition
+                end = pos
             } else {
                 throw ParsingException("expected digit after \"E\" in Number")
             }
         }
-        val numberStr = expText.substring(start, end)
+        val numberStr = expr.substring(start, end)
         return Token(TokenKind.NumericLiteral, numberStr)
     }
 
     fun parseFunctionOrConstant(): Token {
-        val start = currentPosition
-        currentPosition++
-        while (canParse() && isFunctionOrConstantNamePart(expText.elementAtOrNull(currentPosition))) {
-            currentPosition++
+        val start = pos
+        pos++
+        while (canParse() && isFunctionOrConstantNamePart(expr.elementAtOrNull(pos))) {
+            pos++
         }
-        val name = expText.substring(start, currentPosition)
-        val nextNode = expText.elementAtOrNull(currentPosition)
+        val name = expr.substring(start, pos)
+        val nextNode = expr.elementAtOrNull(pos)
         if (nextNode == '(' || nextNode == ' ') {
             return Token(TokenKind.Function, name.trim())
         }
         return Token(TokenKind.Constant, name.trim())
     }
 
-    private fun isDigit(ch: Char?) = ch in '0'..'9'
+    private fun isDigit(ch: Char?) = (ch != null) && (ch in '0'..'9')
 
     private fun isFunctionOrConstantNamePart(ch: Char?): Boolean {
+        if (ch == null) {
+            return false
+        }
         return (ch in '0'..'9') || (ch in 'a'..'z') || (ch in 'A'..'Z') || (ch == '$') || (ch == '_') || (ch == '.')
     }
 }

@@ -1,11 +1,9 @@
 package rolrence.calculator
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import rolrence.calculator.core.Expression
-import rolrence.calculator.core.Parser
-import rolrence.calculator.core.exceptions.ParsingException
 
 
 class MainActivity : AppCompatActivity() {

@@ -10,7 +10,7 @@ enum class TokenKind {
 
     NumericLiteral,
 
-    OpenParenToken,
+    OpenParentToken,
     CloseParentToken,
     PlusToken,
     MinusToken,
