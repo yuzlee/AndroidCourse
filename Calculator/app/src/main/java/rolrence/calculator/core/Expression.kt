@@ -145,5 +145,13 @@ class Expression constructor(val tokens: MutableList<Token>) {
             val expr = Expression(parser.tokenList())
             return expr.eval()
         }
+
+        fun tryParse(exp: String): INode {
+            try {
+                return eval(exp)
+            } catch (e: Exception) {
+                return EndNode()
+            }
+        }
     }
 }

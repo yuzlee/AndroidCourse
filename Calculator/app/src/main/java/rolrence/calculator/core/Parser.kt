@@ -1,6 +1,7 @@
 package rolrence.calculator.core
 
 import rolrence.calculator.core.exceptions.ParsingException
+import rolrence.calculator.core.exceptions.SyntaxError
 import kotlin.coroutines.experimental.buildSequence
 
 
@@ -125,6 +126,9 @@ class Parser constructor(expr: String) {
             pos++
             while (isDigit(expr.elementAtOrNull(pos))) {
                 pos++
+            }
+            if (expr.elementAtOrNull(pos) == '.') {
+                throw ParsingException("unexpected \'.\'")
             }
         }
         var end = pos

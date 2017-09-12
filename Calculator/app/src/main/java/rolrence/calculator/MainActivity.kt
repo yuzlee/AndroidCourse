@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         btnCalc.setOnClickListener({
             val exp = txtExp.text.toString().trim()
             try {
-                var str = "result = ${Expression.eval(exp)}\n"
+                var str = "result = ${Expression.tryParse(exp)}\n"
                 txtResult.setText(str)
             } catch (e: Exception) {
                 txtResult.setText(e.message)
