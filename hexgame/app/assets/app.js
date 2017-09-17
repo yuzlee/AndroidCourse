@@ -19,3 +19,58 @@ function translate() {
 
     console.log(min_x, min_y, max_x, max_y);
 }
+
+function getID(x, y) {
+    return `hex_${x}_${y}`
+}
+
+is_work = false
+current_role = 'V'
+history = {}
+
+SVG.get("svg_g").click(e => {
+    var p = e.path[0]
+    var id = p.id
+    var pos = id.split('_')
+
+    if (!is_work && pos.length == 3) {
+        x = parseInt(pos[1])
+        y = parseInt(pos[2])
+        if ([x,y] in history) {
+            alert(`(${x},${y}) is ${current_role}`)
+            return
+        }
+
+        console.log('current', x, y, current_role)
+
+        history[[x,y]] = current_role
+        SVG.get(id).style({
+            fill: current_role == 'V' ? '#ff0000' : '#0000ff'
+        })
+        current_role = current_role == 'V' ? 'H' : 'V'
+
+        is_work = true
+
+        kotlin.play(x, y)
+    }
+})
+
+function quit_ok(e) {
+    alert(e)
+}
+
+function play_ok(e) {
+    alert('[play_ok]' + e)
+}
+
+function genmove_ok(e) {
+    alert('genmove_ok' + e)
+    move = e.split(',')
+
+    var x = parseInt(move[0])
+    var y = parseInt(move[1])
+    is_work = false
+    SVG.get(getID(x, y)).style({
+        fill: current_role == 'V' ? '#ff0000' : '#0000ff'
+    })
+}

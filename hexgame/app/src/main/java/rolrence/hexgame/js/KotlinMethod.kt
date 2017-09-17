@@ -2,98 +2,77 @@ package rolrence.hexgame.js
 
 
 import android.webkit.JavascriptInterface
+import rolrence.hexgame.hex.AlphaHexInterface
+
 /**
  * Created by Rolrence on 9/12/2017.
  *
  */
-class KotlinMethod {
+class KotlinMethod constructor(val binder: JsBinder) {
+    val alphaHex = AlphaHexInterface()
+
+
     @JavascriptInterface
-    fun name(): String {
-        TODO()
+    fun name() = alphaHex.name()
+
+    @JavascriptInterface
+    fun version() = alphaHex.version()
+
+    @JavascriptInterface
+    fun protocol_version() = alphaHex.protocol_version()
+
+    @JavascriptInterface
+    fun known_command(cmd: String) = alphaHex.known_command(cmd)
+
+    @JavascriptInterface
+    fun list_command() = alphaHex.list_commands()
+
+    @JavascriptInterface
+    fun quit() {
+        alphaHex.quit({
+            binder.execute("quit_ok", it)
+        })
     }
 
     @JavascriptInterface
-    fun version(): String {
-        TODO()
+    fun board_size(xs: Int, ys: Int) = alphaHex.size(xs, ys)
+
+    @JavascriptInterface
+    fun size() = alphaHex.size().toString()
+
+    @JavascriptInterface
+    fun play(x: Int, y: Int) {
+        alphaHex.play(x, y, {
+            binder.execute("play_ok", it)
+            gen_move()
+        })
     }
 
     @JavascriptInterface
-    fun protocol_version(): String {
-        TODO()
+    fun undo() = alphaHex.undo()
+
+    @JavascriptInterface
+    fun gen_move() {
+        alphaHex.gen_move {
+            binder.execute("genmove_ok", it)
+        }
     }
 
     @JavascriptInterface
-    fun known_command(): String {
-        TODO()
-    }
+    fun show_board() = alphaHex.show_board()
 
     @JavascriptInterface
-    fun list_command(): String {
-        TODO()
-    }
+    fun print() = alphaHex.show_board()
 
     @JavascriptInterface
-    fun quit(): String {
-        TODO()
-    }
+    fun set_time() = alphaHex.set_time()
 
     @JavascriptInterface
-    fun board_size(): String {
-        TODO()
-    }
+    fun winner() = alphaHex.winner()
 
     @JavascriptInterface
-    fun size(): String {
-        TODO()
-    }
+    fun hexgui_analyze_commands() = ""
 
     @JavascriptInterface
-    fun clear_board(): String {
-        TODO()
-    }
-
-    @JavascriptInterface
-    fun play(): String {
-        TODO()
-    }
-
-    @JavascriptInterface
-    fun undo(): String {
-        TODO()
-    }
-
-    @JavascriptInterface
-    fun gen_move(): String {
-        TODO()
-    }
-
-    @JavascriptInterface
-    fun show_board(): String {
-        TODO()
-    }
-
-    @JavascriptInterface
-    fun print(): String {
-        TODO()
-    }
-
-    @JavascriptInterface
-    fun set_time(): String {
-        TODO()
-    }
-
-    @JavascriptInterface
-    fun winner(): String {
-        TODO()
-    }
-
-    @JavascriptInterface
-    fun hexgui_analyze_commands(): String {
-        TODO()
-    }
-
-    @JavascriptInterface
-    fun agent(): String {
-        TODO()
-    }
+    fun agent() = alphaHex.agent()
 }
