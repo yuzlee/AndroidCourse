@@ -1,10 +1,5 @@
 package rolrence.hexgame.hex;
 
-import android.util.Log;
-import android.widget.Toast;
-
-import rolrence.hexgame.MainActivity;
-
 /**
  * Created by Rolrence on 9/17/2017.
  *
@@ -23,7 +18,7 @@ public class AlphaHexNative {
 
     public static native void init_carrier();
 
-    public static native void async_player(long ptr, int x, int y);
+    public static native void async_play(long ptr, int x, int y);
 
     public static native long init_ai_player(int level, boolean allowResign);
 

@@ -1,5 +1,7 @@
 package rolrence.hexgame.hex
 
+import android.util.Log
+
 /**
  * Created by Rolrence on 9/12/2017.
  *
@@ -47,8 +49,18 @@ class Player {
 
         fun reg(name: String, level: Int = -1, allowResign: Boolean = false) {
             when (level) {
-                -1 -> playerPool.put(name, PlayerInfo(name, level, allowResign, init_async_player()))
-                else -> playerPool.put(name, PlayerInfo(name, level, allowResign, init_ai_player(level, allowResign)))
+                -1 -> playerPool.put(name,
+                        PlayerInfo(name, level, allowResign, init_async_player()))
+                else -> playerPool.put(name,
+                        PlayerInfo(name, level, allowResign, init_ai_player(level, allowResign)))
+            }
+        }
+
+        fun ptr(name: String): Pointer {
+            try {
+                return playerPool[name]!!.ptr
+            } catch (e: Exception) {
+                return 0
             }
         }
 
@@ -68,11 +80,10 @@ class Player {
                 } catch (e: Exception) {
                     throw Exception("[Error] play for async_$name ($x, $y)")
                 }
-
             }
         }
 
-        fun async_play(ptr: Pointer, x: Int, y: Int) = AlphaHexNative.async_player(ptr, x, y)
+        fun async_play(ptr: Pointer, x: Int, y: Int) = AlphaHexNative.async_play(ptr, x, y)
 
         /**
          *  @return Poi of the player
@@ -193,7 +204,7 @@ class HexMatch {
 
         fun ptr(): Pointer {
             if (match == null) {
-                throw Exception("[ERROR] init hex match")
+                throw Exception("[ERROR] match is null")
             }
             return match!!
         }
@@ -278,15 +289,21 @@ class AlphaHexInterface {
 
         Player.reg(ai(), level = aiLevel.ordinal)
         Player.reg(human())
+
+        HexMatch.init(HexGame.ptr(), Player.ptr(human()), Player.ptr(ai()))
     }
 
     fun play(x: Int, y: Int, callback: (String) -> Unit) {
-        if (HexMatch.status() != HexMatch.HexMatchStatus.MATCH_FINISHED.ordinal) {
-            Player.play(human(), x, y)
-            val move = HexMatch.do_some()
-            callback("[OK] ${HexMove(move)}")
-        } else {
-            callback("[INFO] match has been finished.")
+        try {
+            if (HexMatch.status() != HexMatch.HexMatchStatus.MATCH_FINISHED.ordinal) {
+                Player.play(human(), x, y)
+                val move = HexMatch.do_some()
+                callback("${HexMove(move)}")
+            } else {
+                callback("[INFO] match has been finished.")
+            }
+        } catch (e: Exception) {
+            callback("[ERROR] ${e.message}")
         }
     }
 

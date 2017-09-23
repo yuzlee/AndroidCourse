@@ -11,6 +11,11 @@ import rolrence.hexgame.hex.AlphaHexInterface
 class KotlinMethod constructor(val binder: JsBinder) {
     val alphaHex = AlphaHexInterface()
 
+    init {
+        alphaHex.init()
+        binder.show("env has been initialized")
+    }
+
 
     @JavascriptInterface
     fun name() = alphaHex.name()
@@ -42,10 +47,15 @@ class KotlinMethod constructor(val binder: JsBinder) {
 
     @JavascriptInterface
     fun play(x: Int, y: Int) {
-        alphaHex.play(x, y, {
-            binder.execute("play_ok", it)
-            gen_move()
-        })
+        try {
+            alphaHex.play(x, y, {
+                binder.show(it)
+                binder.execute("play_ok", it)
+                gen_move()
+            })
+        } catch (e: Exception) {
+            binder.show(e.message!!)
+        }
     }
 
     @JavascriptInterface
