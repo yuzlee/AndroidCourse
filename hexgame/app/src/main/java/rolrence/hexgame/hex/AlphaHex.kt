@@ -298,6 +298,7 @@ class AlphaHexInterface {
             if (HexMatch.status() != HexMatch.HexMatchStatus.MATCH_FINISHED.ordinal) {
                 Player.play(human(), x, y)
                 val move = HexMatch.do_some()
+
                 callback("${HexMove(move)}")
             } else {
                 callback("[INFO] match has been finished.")

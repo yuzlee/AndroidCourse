@@ -25,7 +25,9 @@ class JsBinder constructor(val content: Activity, val view: WebView) {
     fun execute(js: String, vararg args: String): Boolean {
         try {
             val jsArgs = args.joinToString(separator = ", ")
-            view.evaluateJavascript("javascript:$js($jsArgs)", functions.getOrDefault(js, {}))
+            view.post({
+                view.evaluateJavascript("javascript:$js($jsArgs)", functions.getOrDefault(js, {}))
+            })
             return true
         } catch (e: Exception) {
             show(e.message!!)
