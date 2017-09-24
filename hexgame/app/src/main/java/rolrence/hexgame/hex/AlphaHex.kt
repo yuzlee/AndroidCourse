@@ -1,6 +1,7 @@
 package rolrence.hexgame.hex
 
 import android.util.Log
+import kotlin.experimental.and
 
 /**
  * Created by Rolrence on 9/12/2017.
@@ -12,10 +13,6 @@ typealias Pointer = Long
 enum class HexMark { HEX_MARK_EMPTY, HEX_MARK_VERT, HEX_MARK_HORI }
 
 enum class LevelT { BEGINNER, INTERMEDIATE, ADVANCED, EXPERT }
-
-
-// kotlinc rolrence/hexgame/hex/AlphaHex.kt -include-runtime
-// javah AlphaHex
 
 class Player {
     class PlayerInfo(val name: String, val level: Int, val allowResign: Boolean, val ptr: Pointer) {
@@ -151,30 +148,36 @@ class HexGame {
     }
 }
 
-class HexMove(var x: Int, var y: Int = -1) {
+class HexMove {
+    var x: Int = 0
+    var y: Int = 0
     var move: Int = 0
 
-    init {
-        if (y == -1) {
-            move = x
-            val tuple = move_to_tuple(x)
-            x = tuple[0]
-            y = tuple[1]
-        } else {
-            move = tuple_to_move(x, y)
-        }
+    constructor(x: Int, y: Int) {
+        this.x = x
+        this.y = y
+        this.move = tuple_to_move(this.x, this.y)
+    }
+
+    constructor(move: Int) {
+        val tuple = move_to_tuple(move)
+        this.move = move
+        this.x = tuple[0]
+        this.y = tuple[1]
     }
 
     override fun toString() = "$x, $y"
 
     companion object {
+        val lval: Int = 0xffff0000.toInt()
+        val rval: Int = 0x0000ffff
+
         fun move_to_tuple(move: Int): Array<Int> {
-            val x: Int = (move shr 4) and 0x00ff
-            val y: Int = move and 0x00ff
+            val x = (move shr 16) and rval
+            val y = move and rval
             return arrayOf(x, y)
         }
-
-        fun tuple_to_move(x: Int, y: Int) = ((x shl 4) and 0xff00) and (y and 0x00ff)
+        fun tuple_to_move(x: Int, y: Int) = (((x shl 16) and lval) or (y and rval))
     }
 }
 
@@ -188,16 +191,6 @@ class HexMatch {
 
         fun init(game_ptr: Pointer, vert_ptr: Pointer, hori_palyer: Pointer) {
             match = init_match(game_ptr, vert_ptr, hori_palyer)
-        }
-
-        fun start(callback: (Int, Int) -> Unit) {
-            if (match == null) {
-                throw Exception("[ERROR] match is null")
-            }
-            while (status() != HexMatchStatus.MATCH_FINISHED.ordinal) {
-                val move = HexMove(do_some())
-                callback(move.x, move.y)
-            }
         }
 
         fun delete() = AlphaHexNative.delete(ptr())
@@ -218,7 +211,7 @@ class HexMatch {
         /**
          * @return compressed (x,y)
          */
-        fun do_some(): Int = AlphaHexNative.do_some(ptr())
+        fun do_some() = AlphaHexNative.do_some(ptr())
     }
 }
 
@@ -298,8 +291,7 @@ class AlphaHexInterface {
             if (HexMatch.status() != HexMatch.HexMatchStatus.MATCH_FINISHED.ordinal) {
                 Player.play(human(), x, y)
                 val move = HexMatch.do_some()
-
-                callback("${HexMove(move)}")
+                callback("($x, $y) ${HexMove(move)}")
             } else {
                 callback("[INFO] match has been finished.")
             }

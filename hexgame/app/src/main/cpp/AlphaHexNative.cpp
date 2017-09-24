@@ -130,7 +130,7 @@ JNIEXPORT jint JNICALL Java_rolrence_hexgame_hex_AlphaHexNative_do_1some
     if (match) {
         auto f = match->doSome().field();
         match->game().board().field2Coords(f, &x, &y);
-        return ((x << 4) & 0xff00) & (y & 0x00ff);
+        return (((x << 16) & 0xffff0000) | (y & 0x0000ffff));
     } else {
         return -1;
     }

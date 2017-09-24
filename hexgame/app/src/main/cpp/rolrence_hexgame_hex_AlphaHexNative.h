@@ -79,7 +79,6 @@ JNIEXPORT jint JNICALL Java_rolrence_hexgame_hex_AlphaHexNative_status
 JNIEXPORT jint JNICALL Java_rolrence_hexgame_hex_AlphaHexNative_do_1some
         (JNIEnv *env, jclass clazz, jlong match_ptr);
 
-
 JNIEXPORT void JNICALL Java_rolrence_hexgame_hex_AlphaHexNative_delete
         (JNIEnv *env, jclass clazz, jlong ptr);
 
