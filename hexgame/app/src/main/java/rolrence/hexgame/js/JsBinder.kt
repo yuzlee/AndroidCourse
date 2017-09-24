@@ -1,6 +1,7 @@
 package rolrence.hexgame.js
 
 import android.app.Activity
+import android.util.Log
 import android.webkit.WebView
 import android.widget.Toast
 import kotlin.concurrent.thread
@@ -22,16 +23,27 @@ class JsBinder constructor(val content: Activity, val view: WebView) {
         functions[js] = callback
     }
 
-    fun execute(js: String, vararg args: String): Boolean {
+    fun execute(js: String, vararg args: Any): Boolean {
         try {
-            val jsArgs = args.joinToString(separator = ", ")
+            val jsArgs = argParser(args).joinToString(separator = ", ")
+            val jsExpr = "javascript:$js($jsArgs)"
+
+            Log.i("JsBinder", "[js function call] $jsExpr")
+
             view.post({
-                view.evaluateJavascript("javascript:$js($jsArgs)", functions.getOrDefault(js, {}))
+                view.evaluateJavascript(jsExpr, functions.getOrDefault(js, {}))
             })
             return true
         } catch (e: Exception) {
             show(e.message!!)
             return false
+        }
+    }
+
+    private fun argParser(args: Array<out Any>) = args.map {
+        when {
+            it is String -> "\"$it\""
+            else -> it
         }
     }
 }

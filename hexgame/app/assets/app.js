@@ -51,7 +51,7 @@ SVG.get("svg_g").click(e => {
 
         is_work = true
 
-        kotlin.play(x, y)
+        kotlin.play(x - 1, y - 1)
     }
 })
 
@@ -60,15 +60,15 @@ function quit_ok(e) {
 }
 
 function play_ok(e) {
-    alert('[play_ok]' + e)
+    // alert('[play_ok]' + e)
 }
 
 function genmove_ok(e) {
-    alert('genmove_ok' + e)
+    // alert('[genmove_ok]' + e)
     move = e.split(',')
 
-    var x = parseInt(move[0])
-    var y = parseInt(move[1])
+    var x = parseInt(move[0]) + 1
+    var y = parseInt(move[1]) + 1
     is_work = false
     SVG.get(getID(x, y)).style({
         fill: current_role == 'V' ? '#ff0000' : '#0000ff'

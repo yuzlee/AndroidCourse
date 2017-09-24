@@ -8,6 +8,11 @@ import rolrence.hexgame.hex.HexMove
  */
 
 fun main(args: Array<String>) {
+    HexMove_test()
+}
+
+
+fun HexMove_test() {
     val move = HexMove(3, 4)
     println(move)
     val move_1 = HexMove(move.move)

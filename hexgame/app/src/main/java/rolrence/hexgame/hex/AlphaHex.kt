@@ -160,13 +160,14 @@ class HexMove {
     }
 
     constructor(move: Int) {
+        assert(move != -1)
         val tuple = move_to_tuple(move)
         this.move = move
         this.x = tuple[0]
         this.y = tuple[1]
     }
 
-    override fun toString() = "$x, $y"
+    override fun toString() = "$x,$y"
 
     companion object {
         val lval: Int = 0xffff0000.toInt()
@@ -177,6 +178,7 @@ class HexMove {
             val y = move and rval
             return arrayOf(x, y)
         }
+
         fun tuple_to_move(x: Int, y: Int) = (((x shl 16) and lval) or (y and rval))
     }
 }
@@ -276,14 +278,20 @@ class AlphaHexInterface {
 
     fun init(size: Int = 8,
              first: HexMark = HexMark.HEX_MARK_VERT,
-             ai: HexMark = HexMark.HEX_MARK_VERT,
+             ai: HexMark = HexMark.HEX_MARK_HORI,
              aiLevel: LevelT = LevelT.BEGINNER) {
         HexGame.init(size, first, swappable = false)
 
         Player.reg(ai(), level = aiLevel.ordinal)
         Player.reg(human())
 
-        HexMatch.init(HexGame.ptr(), Player.ptr(human()), Player.ptr(ai()))
+        if (ai == HexMark.HEX_MARK_VERT) {
+            HexMatch.init(HexGame.ptr(), Player.ptr(ai()), Player.ptr(human()))
+        } else if(ai == HexMark.HEX_MARK_HORI) {
+            HexMatch.init(HexGame.ptr(), Player.ptr(human()), Player.ptr(ai()))
+        } else {
+            throw Exception("invalid player setting")
+        }
     }
 
     fun play(x: Int, y: Int, callback: (String) -> Unit) {
@@ -291,7 +299,7 @@ class AlphaHexInterface {
             if (HexMatch.status() != HexMatch.HexMatchStatus.MATCH_FINISHED.ordinal) {
                 Player.play(human(), x, y)
                 val move = HexMatch.do_some()
-                callback("($x, $y) ${HexMove(move)}")
+                callback("${HexMove(move)}")
             } else {
                 callback("[INFO] match has been finished.")
             }

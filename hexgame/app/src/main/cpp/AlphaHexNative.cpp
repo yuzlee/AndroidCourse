@@ -25,9 +25,11 @@ JNIEXPORT void JNICALL Java_rolrence_hexgame_hex_AlphaHexNative_init_1carrier
  */
 JNIEXPORT void JNICALL Java_rolrence_hexgame_hex_AlphaHexNative_async_1play
         (JNIEnv *env, jclass clazz, jlong ptr, jint x, jint y) {
-    auto async_player = (AsyncPlayer *) ptr;
+    auto async_player = (Poi<AsyncPlayer> *) ptr;
     if (async_player) {
-        async_player->play(x, y);
+        async_player->pointer()->play(x, y);
+    } else {
+        __android_log_print(ANDROID_LOG_ERROR, "ASYNC_PLAY_DO_MOVE", "invalid async player");
     }
 }
 
@@ -128,10 +130,13 @@ JNIEXPORT jint JNICALL Java_rolrence_hexgame_hex_AlphaHexNative_do_1some
     auto match = ((HexMatch *) match_ptr);
     int x, y;
     if (match) {
-        auto f = match->doSome().field();
-        match->game().board().field2Coords(f, &x, &y);
+        match->game().board().field2Coords(match->doSome().field(), &x, &y);
+
+        __android_log_print(ANDROID_LOG_INFO, "DO_SOME_RESULT", "(%d, %d)", x, y);
+
         return (((x << 16) & 0xffff0000) | (y & 0x0000ffff));
     } else {
+        __android_log_print(ANDROID_LOG_ERROR, "DO_SOME_ERROR", "invalid match pointer");
         return -1;
     }
 }
