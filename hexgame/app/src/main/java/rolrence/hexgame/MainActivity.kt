@@ -25,12 +25,9 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val jsBinder = JsBinder(this, webView)
+        JsBinder(this, webView)
 
-        val webSettings = webView.getSettings()
-        webSettings.setLoadWithOverviewMode(true)
-        webSettings.setUseWideViewPort(true)
-        webSettings.setJavaScriptEnabled(true)
+        webView.getSettings().setJavaScriptEnabled(true)
 
         webView.setWebChromeClient(object : WebChromeClient() {
             override fun onJsAlert(view: WebView, url: String, message: String, result: JsResult): Boolean {
