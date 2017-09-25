@@ -167,7 +167,7 @@ var draw = function (H, size, angle, style, aux_node) {
 				.add('l', new point(-2 * x_offset_base, 0))
 				.add('l', new point(-x_offset_base, y_offset_base))
 				.add('z');
-			_path.a('id', 'hex_' + (size - j) + '_' + (i + 1))
+			_path.a('id', 'hex_' + (size - j - 1) + '_' + (i))
 				 .a('class', 'hex-hexagon');
 			//path_array.push(_path.toString(['M', 'l', 'z']));
 			path_array.push(_path);
@@ -191,10 +191,12 @@ var draw = function (H, size, angle, style, aux_node) {
 	});
 	var svg_str = '<svg ' 
 			    + svg_attr_array.join(' ')
-			    + '>' + aux_node
+			    + '>'
 			    +'<g id="svg_g">'
 			    + path_array.join('') 
-			    + '</g></svg>';
+			    + '</g>'
+			    + aux_node
+			    + '</svg>';
 	return svg_str;
 }
 

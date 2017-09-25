@@ -51,7 +51,9 @@ SVG.get("svg_g").click(e => {
 
         is_work = true
 
-        kotlin.play(x - 1, y - 1)
+        kotlin.play(x, y)
+    } else {
+        kotlin.genmove()
     }
 })
 
@@ -67,8 +69,8 @@ function genmove_ok(e) {
     // alert('[genmove_ok]' + e)
     move = e.split(',')
 
-    var x = parseInt(move[0]) + 1
-    var y = parseInt(move[1]) + 1
+    var x = parseInt(move[0])
+    var y = parseInt(move[1])
     is_work = false
     SVG.get(getID(x, y)).style({
         fill: current_role == 'V' ? '#ff0000' : '#0000ff'

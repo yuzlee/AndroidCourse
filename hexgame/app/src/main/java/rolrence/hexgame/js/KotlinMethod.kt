@@ -49,9 +49,9 @@ class KotlinMethod constructor(val binder: JsBinder) {
     fun play(x: Int, y: Int) {
         try {
             alphaHex.play(x, y, {
-                binder.show(it)
+                // binder.show(it)
                 binder.execute("play_ok", it)
-                gen_move()
+                // gen_move()
             })
         } catch (e: Exception) {
             binder.show(e.message!!)
