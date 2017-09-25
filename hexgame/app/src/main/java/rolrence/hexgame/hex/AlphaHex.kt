@@ -142,7 +142,7 @@ class HexGame {
 
         fun init_game(board_ptr: Pointer,
                       next: HexMark = HexMark.HEX_MARK_VERT,
-                      swappable: Boolean = true) = AlphaHexNative.init_game(board_ptr, next.ordinal, swappable)
+                      swappable: Boolean = false) = AlphaHexNative.init_game(board_ptr, next.ordinal, swappable)
 
         fun undo() = AlphaHexNative.undo(ptr())
     }

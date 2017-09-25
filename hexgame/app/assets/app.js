@@ -28,6 +28,10 @@ is_work = false
 current_role = 'V'
 history = {}
 
+function changeCurrent() {
+    current_role = current_role == 'V' ? 'H' : 'V'
+}
+
 SVG.get("svg_g").click(e => {
     var p = e.path[0]
     var id = p.id
@@ -47,13 +51,13 @@ SVG.get("svg_g").click(e => {
         SVG.get(id).style({
             fill: current_role == 'V' ? '#ff0000' : '#0000ff'
         })
-        current_role = current_role == 'V' ? 'H' : 'V'
+        changeCurrent()
 
         is_work = true
 
         kotlin.play(x, y)
     } else {
-        kotlin.genmove()
+        kotlin.gen_move()
     }
 })
 
@@ -75,4 +79,5 @@ function genmove_ok(e) {
     SVG.get(getID(x, y)).style({
         fill: current_role == 'V' ? '#ff0000' : '#0000ff'
     })
+    changeCurrent()
 }
