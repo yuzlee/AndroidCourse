@@ -66,11 +66,11 @@ function quit_ok(e) {
 }
 
 function play_ok(e) {
-    // alert('[play_ok]' + e)
+    // alert('[play_ok] ' + e)
 }
 
 function genmove_ok(e) {
-    // alert('[genmove_ok]' + e)
+    // alert('[genmove_ok] ' + e)
     move = e.split(',')
 
     var x = parseInt(move[0])

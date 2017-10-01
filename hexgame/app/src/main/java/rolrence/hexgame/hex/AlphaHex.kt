@@ -210,6 +210,8 @@ class HexMatch {
 
         fun status(): Int = AlphaHexNative.status(ptr())
 
+        fun finished() = status() == HexMatchStatus.MATCH_FINISHED.ordinal
+
         /**
          * @return compressed (x,y)
          */
@@ -296,7 +298,7 @@ class AlphaHexInterface {
 
     fun play(x: Int, y: Int, callback: (String) -> Unit) {
         try {
-            if (HexMatch.status() != HexMatch.HexMatchStatus.MATCH_FINISHED.ordinal) {
+            if (!HexMatch.finished()) {
                 Player.play(human(), x, y)
                 val move = HexMatch.do_some()
                 callback("${HexMove(move)}")
@@ -311,7 +313,7 @@ class AlphaHexInterface {
     fun undo() = HexGame.undo()
 
     fun gen_move(callback: (String) -> Unit) {
-        if (HexMatch.status() != HexMatch.HexMatchStatus.MATCH_FINISHED.ordinal) {
+        if (!HexMatch.finished()) {
             val move = HexMatch.do_some()
             callback("${HexMove(move)}")
         } else {

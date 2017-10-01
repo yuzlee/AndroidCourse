@@ -49,9 +49,9 @@ class KotlinMethod constructor(val binder: JsBinder) {
     fun play(x: Int, y: Int) {
         try {
             alphaHex.play(x, y, {
-                // binder.show(it)
+                binder.show(it)
                 binder.execute("play_ok", it)
-                // gen_move()
+                gen_move()
             })
         } catch (e: Exception) {
             binder.show(e.message!!)
@@ -64,6 +64,7 @@ class KotlinMethod constructor(val binder: JsBinder) {
     @JavascriptInterface
     fun gen_move() {
         alphaHex.gen_move {
+            binder.show("gen: $it")
             binder.execute("genmove_ok", it)
         }
     }
