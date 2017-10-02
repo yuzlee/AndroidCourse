@@ -8,4 +8,21 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="default_button" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:textSize">30dp</item>
+        <item name="android:background">@drawable/default_button_selector</item>
+        <item name="android:layout_gravity">fill</item>
+    </style>
+
+    <style name="control_button" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:textSize">30dp</item>
+        <item name="android:background">@drawable/extra_button_selector</item>
+        <item name="android:layout_gravity">fill</item>
+    </style>
+
+    <style name="equals_button" parent="Base.TextAppearance.AppCompat.Button">
+        <item name="android:textSize">30dp</item>
+        <item name="android:background">@drawable/equals_button_selector</item>
+        <item name="android:layout_gravity">fill</item>
+    </style>
 </resources>

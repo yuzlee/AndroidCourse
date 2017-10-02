@@ -14,6 +14,7 @@ enum class TokenKind {
     CloseParentToken,
     PlusToken,
     MinusToken,
+    PercentageToken,
     AsteriskToken,
     AsteriskAsteriskToken,
     SlashToken,

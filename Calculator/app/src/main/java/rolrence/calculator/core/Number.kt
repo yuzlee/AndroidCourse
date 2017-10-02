@@ -4,7 +4,7 @@ package rolrence.calculator.core
  * Created by Rolrence on 9/11/2017.
  *
  */
-class Number: IValue {
+class Number : IValue {
     override var value: Double = 0.0
         get
 
@@ -28,6 +28,8 @@ class Number: IValue {
 
     operator fun div(r: Number) = Number(this.value / r.value)
 
+    operator fun rem(r: Number) = Number(this.value % r.value)
+
     override operator fun unaryPlus() = this
 
     override operator fun unaryMinus() = Number(-this.value)
@@ -43,7 +45,12 @@ class Number: IValue {
         return false
     }
 
-    override fun toString() = value.toString()
+    override fun toString(): String {
+        if (value % 1 == 0.0) {
+            return value.toInt().toString()
+        }
+        return value.toString()
+    }
 
     infix fun pow(e: Double): Number = Number(Math.pow(this.value, e))
 

@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorCalcSolve">#007DFF</color>
+    <color name="colorCalcSolveDark">#0070F0</color>
+    <color name="colorCalcDefault">#FCFCFC</color>
+    <color name="colorCalcDefaultDark">#F5F5F5</color>
+    <color name="colorCalcLightDark">#F0F0F0</color>
+    <color name="colorCalcDark">#7E7E7E</color>
 </resources>

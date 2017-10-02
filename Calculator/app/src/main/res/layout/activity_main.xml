@@ -6,20 +6,11 @@
     android:orientation="vertical"
     tools:context="rolrence.calculator.MainActivity">
 
-    <Button
-        android:id="@+id/btnCalc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="click" />
-
-    <EditText
-        android:id="@+id/txtExp"
+    <fragment
+        android:id="@+id/vert_calc"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/txtResult"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:name="rolrence.calculator.VertCalcFragment"
+        tools:layout="@layout/fragment_vert_calc" />
 
 </LinearLayout>

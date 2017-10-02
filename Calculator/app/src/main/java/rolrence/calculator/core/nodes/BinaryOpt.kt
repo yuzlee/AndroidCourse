@@ -20,6 +20,7 @@ class BinaryOpt {
                 TokenKind.AsteriskToken to 2,
                 TokenKind.SlashToken to 2,
 
+                TokenKind.PercentageToken to 3,
                 TokenKind.AsteriskAsteriskToken to 3
         )
 
@@ -62,6 +63,13 @@ class BinaryOpt {
                 return evaluate<Rational>(left, right) { l, r -> l / r }
             } else if (left is Number || right is Number) {
                 return evaluate<Number>(left, right) { l, r -> l / r }
+            }
+            throw ValueError("invalid value [$left, $right]")
+        }
+
+        fun mod(left: IValue, right: IValue): IValue {
+            if (left is Number || right is Number) {
+                return evaluate<Number>(left, right) { l, r -> l % r }
             }
             throw ValueError("invalid value [$left, $right]")
         }

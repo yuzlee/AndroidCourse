@@ -1,5 +1,6 @@
 package rolrence.calculator.core
 
+import android.util.Log
 import rolrence.calculator.core.exceptions.SyntaxError
 import rolrence.calculator.core.nodes.BinaryOpt
 import rolrence.calculator.core.nodes.Constant
@@ -118,6 +119,7 @@ class Expression constructor(val tokens: MutableList<Token>) {
             TokenKind.AsteriskToken -> return BinaryOpt.multiply(left, right)
             TokenKind.SlashToken -> return BinaryOpt.divide(left, right)
             TokenKind.AsteriskAsteriskToken -> return BinaryOpt.pow(left, right)
+            TokenKind.PercentageToken -> return BinaryOpt.mod(left, right)
             else -> throw SyntaxError("invalid binary operator [$oper]")
         }
     }
@@ -141,6 +143,7 @@ class Expression constructor(val tokens: MutableList<Token>) {
 
     companion object {
         fun eval(exp: String): INode {
+            val exp = exp.replace("×","*").replace("÷","/")
             val parser = Parser(exp)
             val expr = Expression(parser.tokenList())
             return expr.eval()
@@ -150,6 +153,7 @@ class Expression constructor(val tokens: MutableList<Token>) {
             try {
                 return eval(exp)
             } catch (e: Exception) {
+                Log.w("ExpressionParser", e.message)
                 return EndNode()
             }
         }

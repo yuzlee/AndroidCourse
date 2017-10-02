@@ -53,6 +53,10 @@ class Parser constructor(expr: String) {
                         pos++
                         yield(Token(TokenKind.SlashToken))
                     }
+                    '%' -> {
+                        pos++
+                        yield(Token(TokenKind.PercentageToken))
+                    }
 
                     '0' -> {
                         yield(parseNumeric())

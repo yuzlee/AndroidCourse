@@ -1,0 +1,232 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="4"
+    android:rowCount="8"
+    tools:context="rolrence.calculator.VertCalcFragment">
+
+    <FrameLayout
+        android:layout_columnSpan="4"
+        android:layout_gravity="fill"
+        android:layout_marginBottom="0dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="0dip"
+        android:layout_rowWeight="1">
+
+        <EditText
+            android:id="@+id/txtInput"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dip"
+            android:layout_marginTop="0dip"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:textSize="50dp" />
+
+        <TextView
+            android:id="@+id/txtView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dip"
+            android:layout_marginTop="0dip"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:hint="0"
+            android:textSize="50dp" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/txtResultView"
+        android:layout_columnSpan="4"
+        android:layout_columnWeight="1"
+        android:layout_gravity="fill"
+        android:layout_marginBottom="0dip"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="0dip"
+        android:layout_rowWeight="1"
+        android:background="@null"
+        android:gravity="right|center_vertical"
+        android:textSize="18dp" />
+
+    <Button
+        android:id="@+id/btnMC"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="mc"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/btnMPlus"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="m+"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/btnMMinus"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="m-"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/btnMR"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="mr"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/btnClear"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="C"
+        android:textColor="@color/colorCalcSolve" />
+
+    <Button
+        android:id="@+id/btnDiv"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="÷"
+        android:textColor="@color/colorCalcSolve" />
+
+    <Button
+        android:id="@+id/btnMul"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="×"
+        android:textColor="@color/colorCalcSolve" />
+
+    <Button
+        android:id="@+id/btnDel"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="✘"
+        android:textColor="@color/colorCalcSolve" />
+
+    <Button
+        android:id="@+id/btnSeven"
+        style="@style/default_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="7" />
+
+    <Button
+        android:id="@+id/btnEight"
+        style="@style/default_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="8" />
+
+    <Button
+        android:id="@+id/btnNine"
+        style="@style/default_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="9" />
+
+    <Button
+        android:id="@+id/btnMinus"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="-"
+        android:textColor="@color/colorCalcSolve" />
+
+    <Button
+        android:id="@+id/btnFour"
+        style="@style/default_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="4" />
+
+    <Button
+        android:id="@+id/btnFive"
+        style="@style/default_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="5" />
+
+    <Button
+        android:id="@+id/btnSix"
+        style="@style/default_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="6" />
+
+    <Button
+        android:id="@+id/btnPlus"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="+"
+        android:textColor="@color/colorCalcSolve" />
+
+    <Button
+        android:id="@+id/btnOne"
+        style="@style/default_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="1" />
+
+    <Button
+        android:id="@+id/btnTwo"
+        style="@style/default_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="2" />
+
+    <Button
+        android:id="@+id/btnThree"
+        style="@style/default_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="3" />
+
+
+    <Button
+        android:id="@+id/btnEquals"
+        style="@style/equals_button"
+        android:layout_columnWeight="1"
+        android:layout_rowSpan="2"
+        android:layout_rowWeight="2"
+        android:text="="
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btnPercentage"
+        style="@style/default_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="%" />
+
+    <Button
+        android:id="@+id/btnZero"
+        style="@style/default_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="0" />
+
+    <Button
+        android:id="@+id/btnPoint"
+        style="@style/default_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="." />
+
+</GridLayout>
