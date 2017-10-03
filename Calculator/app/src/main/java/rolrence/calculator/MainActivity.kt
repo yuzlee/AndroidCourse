@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.BoringLayout
+import android.view.Menu
+import android.view.MenuItem
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
@@ -22,15 +25,25 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_main)
+    }
 
-//        btnCalc.setOnClickListener({
-//            val exp = txtExp.text.toString().trim()
-//            try {
-//                var str = "result = ${Expression.tryParse(exp)}\n"
-//                txtResult.setText(str)
-//            } catch (e: Exception) {
-//                txtResult.setText(e.message)
-//            }
-//        })
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        if (this.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            menuInflater.inflate(R.menu.main_menu, menu)
+            return true
+        }
+        return false
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.itemUnitConvert -> {
+
+            }
+            R.id.itemExchangeRateConvert -> {
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
