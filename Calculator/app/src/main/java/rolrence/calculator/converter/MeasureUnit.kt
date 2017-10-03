@@ -39,7 +39,7 @@ class MeasureUnit {
                 "海里" to 16, "nmi" to 16
         )
 
-        fun convert(value: String, unit: String) = Message.get(value, unitList[unit]!!).result.map {
+        fun list(value: String, unit: String) = Message.get(value, unitList[unit]!!).result.map {
             Pair(it.name, it.value)
         }.toMap()
 

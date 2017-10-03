@@ -1,6 +1,7 @@
 package rolrence.calculator
 
 import android.app.Activity
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -38,10 +39,14 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.itemUnitConvert -> {
-
+                val intent = Intent()
+                intent.setClass(this, UnitConversionActivity::class.java)
+                startActivity(intent)
             }
             R.id.itemExchangeRateConvert -> {
-
+                val intent = Intent()
+                intent.setClass(this, ExchangeRateActivity::class.java)
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)

@@ -1,54 +1,56 @@
 package rolrence.calculator.converter
 
 import com.google.gson.Gson
+import java.io.Serializable
+import java.text.DecimalFormat
 
 /**
  * Created by Rolrence on 10/3/2017.
  *
  */
-class ExchangeRate {
-    class Message {
-        data class Data(val buyPic: Double,
-                        val closePri: Double,
-                        val code: String,
-                        val color: String,
-                        val currency: String,
-                        val datatime: String,
-                        val date: String,
-                        val diffAmo: Double,
-                        val diffPer: Double,
-                        val highPic: Double,
-                        val lowPic: Double,
-                        val openPri: Double,
-                        val range: Double,
-                        val sellPri: Double,
-                        val yesPic: Double
-        )
+class Message {
+    data class Data(val buyPic: Double,
+                    val closePri: Double,
+                    val code: String,
+                    val color: String,
+                    val currency: String,
+                    val datatime: String,
+                    val date: String,
+                    val diffAmo: Double,
+                    val diffPer: String,
+                    val highPic: Double,
+                    val lowPic: Double,
+                    val openPri: Double,
+                    val range: String,
+                    val sellPri: Double,
+                    val yesPic: Double
+    )
 
-        data class Result(val data1: Data,
-                          val data2: Data,
-                          val data3: Data,
-                          val data4: Data,
-                          val data5: Data,
-                          val data6: Data,
-                          val data7: Data,
-                          val data8: Data,
-                          val data9: Data,
-                          val data10: Data,
-                          val data11: Data,
-                          val data12: Data,
-                          val data13: Data
-        )
+    data class Result(val data1: Data,
+                      val data2: Data,
+                      val data3: Data,
+                      val data4: Data,
+                      val data5: Data,
+                      val data6: Data,
+                      val data7: Data,
+                      val data8: Data,
+                      val data9: Data,
+                      val data10: Data,
+                      val data11: Data,
+                      val data12: Data,
+                      val data13: Data
+    )
 
-        data class Msg(val error_code: Int, val reason: String, val result: Result)
+    data class Msg(val error_code: Int, val reason: String, val result: Result)
 
-        companion object {
-            fun get() = Gson().fromJson(
-                    AvatarData("http://api.avatardata.cn/Currency/CurrencyList?key=609f0f92450e40bdbe18860e2cf553cf").get(),
-                    Msg::class.java)
-        }
+    companion object {
+        fun get() = Gson().fromJson(
+                AvatarData("http://api.avatardata.cn/Currency/CurrencyList?key=609f0f92450e40bdbe18860e2cf553cf").get(),
+                Msg::class.java)
     }
+}
 
+class ExchangeRate: Serializable {
     val kindList = listOf(
             "美元",
             "澳元",
@@ -84,18 +86,18 @@ class ExchangeRate {
             "台币" to (msg.result.data13.buyPic)
     )
 
-    fun convert(from: String, to: String): (Double) -> Double {
+    fun convert(from: String, to: String): (Double) -> String {
         val rate = simpleRate.getOrDefault(to, 0.0) / simpleRate.getOrDefault(from, 1.0)
-        return { it * rate }
+        return { DecimalFormat("#0.00").format(it * rate) }
     }
 
-    fun list(from: String, value: Double): Map<String, Double> {
-        val m = mutableMapOf<String, Double>()
-        for (r in simpleRate) {
-            if (r.key != from) {
-                m[r.key] = convert(from, r.key)(value)
+    fun list(from: String, value: Double): Map<String, String> {
+        val m = mutableMapOf<String, String>()
+        for (k in kindList) {
+            if (k != from) {
+                m[k] = convert(from, k)(value)
             }
         }
-        return m
+        return m.toMap()
     }
 }

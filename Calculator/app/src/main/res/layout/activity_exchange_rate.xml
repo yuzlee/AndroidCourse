@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:orientation="vertical"
+    tools:context="rolrence.calculator.ExchangeRateActivity">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:columnCount="6">
+
+        <EditText
+            android:id="@+id/txtInput"
+            android:layout_columnSpan="5"
+            android:layout_columnWeight="5"
+            android:background="@null"
+            android:hint="0"
+            android:paddingLeft="20dp"
+            android:textSize="40sp" />
+
+        <Spinner
+            android:id="@+id/spinnerInputType"
+            android:entries="@array/exchange_list"
+            android:gravity="end" />
+
+        <TextView
+            android:id="@+id/txtOutput"
+            android:layout_columnSpan="5"
+            android:layout_columnWeight="5"
+            android:background="@null"
+            android:hint="0"
+            android:paddingLeft="20dp"
+            android:textSize="40sp" />
+
+        <Spinner
+            android:id="@+id/spinnerOutputType"
+            android:entries="@array/exchange_list"
+            android:gravity="end" />
+
+    </GridLayout>
+
+    <ListView
+        android:id="@+id/listExchangeRate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

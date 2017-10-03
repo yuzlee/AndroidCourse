@@ -1,5 +1,6 @@
 package rolrence.calculator.converter
 
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.squareup.okhttp.OkHttpClient
@@ -18,7 +19,9 @@ class AvatarData(val url: String) {
             val response = client.newCall(request).execute()
             return response.body().string()
         } catch (e: Exception) {
-            throw Exception("error while get exchange rate info")
+            // Log.w("AvatarData", e.message)
+            // throw Exception("error while get exchange rate info")
+            throw e
         }
     }
 }
