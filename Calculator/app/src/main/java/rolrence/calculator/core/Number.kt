@@ -20,6 +20,10 @@ class Number : IValue {
         this.value = value
     }
 
+    constructor(value: Int) {
+        this.value = value.toDouble()
+    }
+
     operator fun plus(r: Number) = Number(this.value + r.value)
 
     operator fun minus(r: Number) = Number(this.value - r.value)
@@ -46,11 +50,18 @@ class Number : IValue {
     }
 
     override fun toString(): String {
-        if (value % 1 == 0.0) {
+        if (isInt()) {
             return value.toInt().toString()
+        }
+        if (value == Double.POSITIVE_INFINITY || value == Double.NEGATIVE_INFINITY) {
+            return "NaN"
         }
         return value.toString()
     }
+
+    fun isInt() = value % 1 == 0.0
+
+    infix fun pow(e: Int): Number = Number(Math.pow(this.value, e.toDouble()))
 
     infix fun pow(e: Double): Number = Number(Math.pow(this.value, e))
 

@@ -2,12 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:columnCount="4"
+    android:columnCount="7"
     android:rowCount="8"
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
     tools:context="rolrence.calculator.VertCalcFragment">
 
     <FrameLayout
-        android:layout_columnSpan="4"
+        android:layout_columnSpan="7"
         android:layout_gravity="fill"
         android:layout_marginBottom="0dip"
         android:layout_marginLeft="20dip"
@@ -18,28 +19,31 @@
         <EditText
             android:id="@+id/txtInput"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="0dip"
-            android:layout_marginTop="0dip"
-            android:background="@null"
-            android:gravity="right|center_vertical"
-            android:textSize="50dp" />
-
-        <TextView
-            android:id="@+id/txtView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="0dip"
             android:layout_marginTop="0dip"
             android:background="@null"
             android:gravity="right|center_vertical"
             android:hint="0"
-            android:textSize="50dp" />
+            android:maxLines="1"
+            android:textSize="35sp" />
+
+        <!--<TextView-->
+        <!--android:id="@+id/txtView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="0dip"-->
+        <!--android:layout_marginTop="0dip"-->
+        <!--android:background="@null"-->
+        <!--android:gravity="right|center_vertical"-->
+        <!--android:hint="0"-->
+        <!--android:textSize="30sp" />-->
     </FrameLayout>
 
     <TextView
         android:id="@+id/txtResultView"
-        android:layout_columnSpan="4"
+        android:layout_height="wrap_content"
+        android:layout_columnSpan="7"
         android:layout_columnWeight="1"
         android:layout_gravity="fill"
         android:layout_marginBottom="0dip"
@@ -49,7 +53,34 @@
         android:layout_rowWeight="1"
         android:background="@null"
         android:gravity="right|center_vertical"
-        android:textSize="18dp" />
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btnLeftBracket"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="("
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btnRightBracket"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text=")"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btnReciprocal"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="1/x"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
 
     <Button
         android:id="@+id/btnMC"
@@ -58,7 +89,7 @@
         android:layout_rowWeight="1"
         android:text="mc"
         android:textColor="@color/colorCalcDark"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnMPlus"
@@ -67,7 +98,7 @@
         android:layout_rowWeight="1"
         android:text="m+"
         android:textColor="@color/colorCalcDark"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnMMinus"
@@ -76,7 +107,7 @@
         android:layout_rowWeight="1"
         android:text="m-"
         android:textColor="@color/colorCalcDark"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnMR"
@@ -85,7 +116,34 @@
         android:layout_rowWeight="1"
         android:text="mr"
         android:textColor="@color/colorCalcDark"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btnSquare"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="x²"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btnCube"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="x³"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btnPow"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="xⁿ"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
 
     <Button
         android:id="@+id/btnClear"
@@ -101,7 +159,8 @@
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:text="÷"
-        android:textColor="@color/colorCalcSolve" />
+        android:textColor="@color/colorCalcSolve"
+        android:textSize="40sp" />
 
     <Button
         android:id="@+id/btnMul"
@@ -109,7 +168,8 @@
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:text="×"
-        android:textColor="@color/colorCalcSolve" />
+        android:textColor="@color/colorCalcSolve"
+        android:textSize="40sp" />
 
     <Button
         android:id="@+id/btnDel"
@@ -120,25 +180,55 @@
         android:textColor="@color/colorCalcSolve" />
 
     <Button
+        android:id="@+id/btnFactorial"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="x!"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btnSqrt"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="√"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btnRoot"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="ⁿ√"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
+
+    <Button
         android:id="@+id/btnSeven"
         style="@style/default_button"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
-        android:text="7" />
+        android:text="7"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/btnEight"
         style="@style/default_button"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
-        android:text="8" />
+        android:text="8"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/btnNine"
         style="@style/default_button"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
-        android:text="9" />
+        android:text="9"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/btnMinus"
@@ -146,28 +236,60 @@
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:text="-"
-        android:textColor="@color/colorCalcSolve" />
+        android:textColor="@color/colorCalcSolve"
+        android:textSize="40sp" />
+
+
+    <Button
+        android:id="@+id/btnE"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="e"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btnLn"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="ln"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btnLog10"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="log"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
 
     <Button
         android:id="@+id/btnFour"
         style="@style/default_button"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
-        android:text="4" />
+        android:text="4"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/btnFive"
         style="@style/default_button"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
-        android:text="5" />
+        android:text="5"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/btnSix"
         style="@style/default_button"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
-        android:text="6" />
+        android:text="6"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/btnPlus"
@@ -175,28 +297,59 @@
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:text="+"
-        android:textColor="@color/colorCalcSolve" />
+        android:textColor="@color/colorCalcSolve"
+        android:textSize="40sp" />
+
+    <Button
+        android:id="@+id/btnSin"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="sin"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btnCos"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="cos"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btnTan"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="tan"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
 
     <Button
         android:id="@+id/btnOne"
         style="@style/default_button"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
-        android:text="1" />
+        android:text="1"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/btnTwo"
         style="@style/default_button"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
-        android:text="2" />
+        android:text="2"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/btnThree"
         style="@style/default_button"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
-        android:text="3" />
+        android:text="3"
+        android:textSize="25sp" />
 
 
     <Button
@@ -209,24 +362,54 @@
         android:textColor="#FFFFFF" />
 
     <Button
-        android:id="@+id/btnPercentage"
+        android:id="@+id/btnASin"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="asin"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btnACos"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="acos"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btnATan"
+        style="@style/control_button"
+        android:layout_columnWeight="1"
+        android:layout_rowWeight="1"
+        android:text="atan"
+        android:textColor="@color/colorCalcDark"
+        android:textSize="17sp" />
+
+    <Button
+        android:id="@+id/btnPi"
         style="@style/default_button"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
-        android:text="%" />
+        android:text="π"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/btnZero"
         style="@style/default_button"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
-        android:text="0" />
+        android:text="0"
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/btnPoint"
         style="@style/default_button"
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
-        android:text="." />
+        android:text="."
+        android:textSize="25sp" />
 
 </GridLayout>

@@ -23,18 +23,20 @@
             android:layout_marginTop="0dip"
             android:background="@null"
             android:gravity="right|center_vertical"
-            android:textSize="50dp" />
-
-        <TextView
-            android:id="@+id/txtView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="0dip"
-            android:layout_marginTop="0dip"
-            android:background="@null"
-            android:gravity="right|center_vertical"
             android:hint="0"
-            android:textSize="50dp" />
+            android:maxLines="1"
+            android:textSize="50sp" />
+
+        <!--<TextView-->
+        <!--android:id="@+id/txtView"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_marginBottom="0dip"-->
+        <!--android:layout_marginTop="0dip"-->
+        <!--android:background="@null"-->
+        <!--android:gravity="right|center_vertical"-->
+        <!--android:hint="0"-->
+        <!--android:textSize="50sp" />-->
     </FrameLayout>
 
     <TextView
@@ -49,7 +51,7 @@
         android:layout_rowWeight="1"
         android:background="@null"
         android:gravity="right|center_vertical"
-        android:textSize="18dp" />
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/btnMC"
@@ -58,7 +60,7 @@
         android:layout_rowWeight="1"
         android:text="mc"
         android:textColor="@color/colorCalcDark"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnMPlus"
@@ -67,7 +69,7 @@
         android:layout_rowWeight="1"
         android:text="m+"
         android:textColor="@color/colorCalcDark"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnMMinus"
@@ -76,7 +78,7 @@
         android:layout_rowWeight="1"
         android:text="m-"
         android:textColor="@color/colorCalcDark"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnMR"
@@ -85,7 +87,7 @@
         android:layout_rowWeight="1"
         android:text="mr"
         android:textColor="@color/colorCalcDark"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btnClear"
@@ -101,7 +103,8 @@
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:text="÷"
-        android:textColor="@color/colorCalcSolve" />
+        android:textColor="@color/colorCalcSolve"
+        android:textSize="40sp" />
 
     <Button
         android:id="@+id/btnMul"
@@ -109,7 +112,8 @@
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:text="×"
-        android:textColor="@color/colorCalcSolve" />
+        android:textColor="@color/colorCalcSolve"
+        android:textSize="40sp" />
 
     <Button
         android:id="@+id/btnDel"
@@ -146,7 +150,8 @@
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:text="-"
-        android:textColor="@color/colorCalcSolve" />
+        android:textColor="@color/colorCalcSolve"
+        android:textSize="40sp" />
 
     <Button
         android:id="@+id/btnFour"
@@ -175,7 +180,8 @@
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:text="+"
-        android:textColor="@color/colorCalcSolve" />
+        android:textColor="@color/colorCalcSolve"
+        android:textSize="40sp" />
 
     <Button
         android:id="@+id/btnOne"
@@ -206,7 +212,8 @@
         android:layout_rowSpan="2"
         android:layout_rowWeight="2"
         android:text="="
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:textSize="40sp" />
 
     <Button
         android:id="@+id/btnPercentage"

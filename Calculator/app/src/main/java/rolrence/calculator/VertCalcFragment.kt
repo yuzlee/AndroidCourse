@@ -16,6 +16,10 @@ import kotlinx.android.synthetic.main.fragment_vert_calc.*
 import kotlinx.android.synthetic.main.fragment_vert_calc.view.*
 import rolrence.calculator.core.Expression
 import rolrence.calculator.core.Number
+import android.view.WindowManager
+import android.R.attr.orientation
+import android.content.res.Configuration
+
 
 class VertCalcFragment : Fragment() {
     val expr = mutableListOf<String>()
@@ -40,14 +44,16 @@ class VertCalcFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (TextUtils.isEmpty(s)) {
-                    txtView.visibility = View.VISIBLE
-                } else {
-                    txtView.visibility = View.GONE
-                }
+//                if (TextUtils.isEmpty(s)) {
+//                    txtView.visibility = View.VISIBLE
+//                } else {
+//                    txtView.visibility = View.GONE
+//                }
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+                txtInput.setSelection(txtInput.text.length)
+            }
         })
 
         view.btnClear.setOnClickListener {
@@ -60,7 +66,6 @@ class VertCalcFragment : Fragment() {
                 expr.removeAt(expr.size - 1)
             }
             setInput(expr.joinToString(separator = ""))
-            txtInput.setSelection(txtInput.text.length)
             set("")
         }
 
@@ -77,7 +82,13 @@ class VertCalcFragment : Fragment() {
         view.btnPoint.setOnClickListener { appendAndCalc(".") }
 
         view.btnEquals.setOnClickListener {
-            set(calc())
+            val result = calc()
+            if (result != "NaN") {
+                expr.clear()
+                expr.add(result)
+                setInput(result)
+                set("")
+            }
         }
 
         view.btnMC.setOnClickListener { records.clear() }
@@ -93,9 +104,48 @@ class VertCalcFragment : Fragment() {
         view.btnMinus.setOnClickListener { appendAndCalc("-") }
         view.btnMul.setOnClickListener { appendAndCalc("×") }
         view.btnDiv.setOnClickListener { appendAndCalc("÷") }
-        view.btnPercentage.setOnClickListener { appendAndCalc("%") }
+        view.btnPercentage?.setOnClickListener { appendAndCalc("%") }
+
+        view.btnLeftBracket?.setOnClickListener { appendAndCalc("(") }
+        view.btnRightBracket?.setOnClickListener { appendAndCalc(")") }
+        view.btnReciprocal?.setOnClickListener { appendAndCalc("**(-1)") }
+
+        view.btnSquare?.setOnClickListener { appendAndCalc("**2") }
+        view.btnCube?.setOnClickListener { appendAndCalc("**3") }
+        view.btnPow?.setOnClickListener { appendAndCalc("**") }
+
+        view.btnFactorial?.setOnClickListener { appendAndCalc("fac(") }
+        view.btnSqrt?.setOnClickListener { appendAndCalc("**(1/2)") }
+        view.btnRoot?.setOnClickListener { appendAndCalc("**(1/") }
+
+        view.btnE?.setOnClickListener { appendAndCalc("e") }
+        view.btnLn?.setOnClickListener { appendAndCalc("ln(") }
+        view.btnLog10?.setOnClickListener { appendAndCalc("log(") }
+
+        view.btnSin?.setOnClickListener { appendAndCalc("sin(") }
+        view.btnCos?.setOnClickListener { appendAndCalc("cos(") }
+        view.btnTan?.setOnClickListener { appendAndCalc("tan(") }
+
+        view.btnASin?.setOnClickListener { appendAndCalc("asin(") }
+        view.btnACos?.setOnClickListener { appendAndCalc("acos(") }
+        view.btnATan?.setOnClickListener { appendAndCalc("atan(") }
+
+        view.btnPi?.setOnClickListener { appendAndCalc("pi") }
 
         return view
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            activity.window.setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            val attr = activity.window.attributes
+            attr.flags = attr.flags and WindowManager.LayoutParams.FLAG_FULLSCREEN.inv()
+            activity.window.attributes = attr
+        }
     }
 
     fun calc(exp: String) = Expression.tryParse(exp).toString()

@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="rolrence.calculator.MainActivity">
 
     <fragment
         android:id="@+id/vert_calc"
+        android:name="rolrence.calculator.VertCalcFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="rolrence.calculator.VertCalcFragment"
         tools:layout="@layout/fragment_vert_calc" />
 
 </LinearLayout>

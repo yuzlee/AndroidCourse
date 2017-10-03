@@ -9,7 +9,7 @@ import rolrence.calculator.core.exceptions.SyntaxError
  * Created by Rolrence on 9/11/2017.
  *
  */
-class Function constructor(val opt: (IValue) -> Number): IFunction {
+class Function constructor(val opt: (IValue) -> Number) : IFunction {
     override fun execute(arg: IValue) = opt(arg)
 }
 
@@ -25,7 +25,11 @@ class FunctionFactory {
                 "sqrt" to Function { Number(Math.sqrt(it.value)) },
                 "exp" to Function { Number(Math.exp(it.value)) },
                 "ln" to Function { Number(Math.log(it.value)) },
-                "log" to Function { Number(Math.log10(it.value)) }
+                "log" to Function { Number(Math.log10(it.value)) },
+
+                "fac" to Function {
+                    Number((1..it.value.toInt()).reduce { acc, i -> acc * i })
+                }
         )
 
         fun createFunction(name: String): IFunction {
