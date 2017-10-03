@@ -18,15 +18,20 @@
             android:id="@+id/txtInput"
             android:layout_columnSpan="5"
             android:layout_columnWeight="5"
+            android:layout_rowSpan="2"
             android:background="@null"
             android:hint="0"
+            android:inputType="number"
             android:paddingLeft="20dp"
             android:textSize="40sp" />
 
         <Spinner
             android:id="@+id/spinnerInputType"
-            android:entries="@array/unit_list"
-            android:gravity="end" />
+            android:entries="@array/unit_kind_list" />
+
+        <Spinner
+            android:id="@+id/spinnerInputUnit"
+            android:entries="@array/length_unit_list" />
 
         <Button
             android:id="@+id/btnConvert"

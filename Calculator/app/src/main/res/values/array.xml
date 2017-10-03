@@ -15,7 +15,12 @@
         <item>新加坡元</item>
         <item>台币</item>
     </string-array>
-    <string-array name="unit_list">
+    <string-array name="unit_kind_list">
+        <item>长度</item>
+        <item>面积</item>
+        <item>重量</item>
+    </string-array>
+    <string-array name="length_unit_list">
         <item>公里</item>
         <item>米</item>
         <item>分米</item>
@@ -32,5 +37,42 @@
         <item>码</item>
         <item>英尺</item>
         <item>海里</item>
+    </string-array>
+    <string-array name="area_unit_list">
+        <item>平方公里"</item>
+        <item>平方米"</item>
+        <item>平方分米"</item>
+        <item>平方厘米"</item>
+        <item>平方毫米"</item>
+        <item>平方英里"</item>
+        <item>平方英尺"</item>
+        <item>平方英寸"</item>
+        <item>公顷"</item>
+        <item>平方码"</item>
+        <item>市亩"</item>
+        <item>英亩"</item>
+    </string-array>
+    <string-array name="weight_unit_list">
+        <item>吨"</item>
+        <item>公斤"</item>
+        <item>克"</item>
+        <item>毫克"</item>
+        <item>市斤"</item>
+        <item>担"</item>
+        <item>两"</item>
+        <item>钱"</item>
+        <item>金衡磅"</item>
+        <item>金衡盎司"</item>
+        <item>英钱"</item>
+        <item>金衡格令"</item>
+        <item>长吨"</item>
+        <item>短吨"</item>
+        <item>英担"</item>
+        <item>美担"</item>
+        <item>英石"</item>
+        <item>磅"</item>
+        <item>盎司"</item>
+        <item>打兰"</item>
+        <item>格令"</item>
     </string-array>
 </resources>
