@@ -27,11 +27,15 @@
 
         <Spinner
             android:id="@+id/spinnerInputType"
-            android:entries="@array/unit_kind_list" />
+            android:entries="@array/unit_kind_list"
+            android:layout_gravity="fill"
+            android:gravity="end" />
 
         <Spinner
             android:id="@+id/spinnerInputUnit"
-            android:entries="@array/length_unit_list" />
+            android:entries="@array/length_unit_list"
+            android:layout_gravity="fill"
+            android:gravity="end" />
 
         <Button
             android:id="@+id/btnConvert"

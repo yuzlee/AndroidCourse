@@ -59,7 +59,7 @@ class UnitConversionActivity : AppCompatActivity() {
                     val msg = Message()
                     val bundle = Bundle()
                     bundle.putStringArray("converter", MeasureUnit.list(inputType, input, inputUnit).map {
-                        "$input $inputType = ${it.value} ${it.key}"
+                        "$input $inputUnit = ${it.value} ${it.key}"
                     }.toTypedArray())
                     msg.data = bundle
                     h.sendMessage(msg)
