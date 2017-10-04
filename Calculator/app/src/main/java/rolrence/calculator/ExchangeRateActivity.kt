@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.activity_exchange_rate.*
 import rolrence.calculator.converter.ExchangeRate
 import android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 
 
@@ -44,13 +45,25 @@ class ExchangeRateActivity : AppCompatActivity() {
         setContentView(R.layout.activity_exchange_rate)
 
         txtOutput.setOnClickListener {
-            Thread {
-                val msg = Message()
-                val bundle = Bundle()
-                bundle.putSerializable("converter", ExchangeRate())
-                msg.data = bundle
-                h.sendMessage(msg)
-            }.start()
+            invokeConverter()
         }
+
+        txtInput.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                invokeConverter()
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        }
+    }
+
+    fun invokeConverter() {
+        Thread {
+            val msg = Message()
+            val bundle = Bundle()
+            bundle.putSerializable("converter", ExchangeRate())
+            msg.data = bundle
+            h.sendMessage(msg)
+        }.start()
     }
 }

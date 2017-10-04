@@ -95,6 +95,7 @@
         android:layout_columnWeight="1"
         android:layout_rowWeight="1"
         android:text="C"
+        android:textSize="26sp"
         android:textColor="@color/colorCalcSolve" />
 
     <Button
