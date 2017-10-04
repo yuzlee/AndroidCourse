@@ -23,3 +23,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keepclassmembers class rolrence.hexgame.js.KotlinMethod {*;}
+-keepattributes *Annotation*
+-keepattributes *JavascriptInterface*
+-keep class android.webkit.JavascriptInterface {*;}
