@@ -278,7 +278,7 @@ class AlphaHexInterface {
     fun ai() = "ai"
     fun human() = "human"
 
-    fun init(size: Int = 8,
+    fun init(size: Int = 7,
              first: HexMark = HexMark.HEX_MARK_VERT,
              ai: HexMark = HexMark.HEX_MARK_HORI,
              aiLevel: LevelT = LevelT.BEGINNER) {
@@ -289,19 +289,27 @@ class AlphaHexInterface {
 
         if (ai == HexMark.HEX_MARK_VERT) {
             HexMatch.init(HexGame.ptr(), Player.ptr(ai()), Player.ptr(human()))
-        } else if(ai == HexMark.HEX_MARK_HORI) {
+        } else if (ai == HexMark.HEX_MARK_HORI) {
             HexMatch.init(HexGame.ptr(), Player.ptr(human()), Player.ptr(ai()))
         } else {
             throw Exception("invalid player setting")
         }
     }
 
+    fun winner() = when (HexGame.winner()) {
+        HexMark.HEX_MARK_HORI -> "H"
+        HexMark.HEX_MARK_VERT -> "V"
+        else -> "N"
+    }
+
+    fun callbackParams(move: Int) = "${HexMove(move)},${winner()},${if (HexMatch.finished()) 1 else 0}"
+
     fun play(x: Int, y: Int, callback: (String) -> Unit) {
         try {
             if (!HexMatch.finished()) {
                 Player.play(human(), x, y)
                 val move = HexMatch.do_some()
-                callback("${HexMove(move)}")
+                callback(callbackParams(move))
             } else {
                 callback("[INFO] match has been finished.")
             }
@@ -310,24 +318,22 @@ class AlphaHexInterface {
         }
     }
 
-    fun undo() = HexGame.undo()
-
     fun gen_move(callback: (String) -> Unit) {
         if (!HexMatch.finished()) {
             val move = HexMatch.do_some()
-            callback("${HexMove(move)}")
+            callback(callbackParams(move))
         } else {
             callback("[INFO] match has been finished.")
         }
     }
+
+    fun undo() = HexGame.undo()
 
     fun show_board() = ""
 
     fun print() = ""
 
     fun set_time() = ""
-
-    fun winner() = HexGame.winner()
 
     fun agent() = "${name()}-${version()} GTP${protocol_version()}"
 }

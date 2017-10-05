@@ -3,6 +3,8 @@ package rolrence.hexgame.js
 
 import android.webkit.JavascriptInterface
 import rolrence.hexgame.hex.AlphaHexInterface
+import rolrence.hexgame.hex.HexMark
+import rolrence.hexgame.hex.LevelT
 
 /**
  * Created by Rolrence on 9/12/2017.
@@ -11,8 +13,18 @@ import rolrence.hexgame.hex.AlphaHexInterface
 class KotlinMethod constructor(val binder: JsBinder) {
     val alphaHex = AlphaHexInterface()
 
-    init {
-        alphaHex.init()
+    fun init(size: Int = 7,
+             first: HexMark = HexMark.HEX_MARK_VERT,
+             ai: HexMark = HexMark.HEX_MARK_HORI,
+             aiLevel: LevelT = LevelT.BEGINNER) {
+        alphaHex.init(size, first, ai, aiLevel)
+
+        if (first == ai) {
+            binder.execute("setOptions", "V", "V")
+        } else {
+            binder.execute("setOptions", "V", "H")
+        }
+
         binder.show("env has been initialized")
     }
 
@@ -49,9 +61,7 @@ class KotlinMethod constructor(val binder: JsBinder) {
     fun play(x: Int, y: Int) {
         try {
             alphaHex.play(x, y, {
-                binder.show(it)
                 binder.execute("play_ok", it)
-                gen_move()
             })
         } catch (e: Exception) {
             binder.show(e.message!!)
@@ -64,7 +74,6 @@ class KotlinMethod constructor(val binder: JsBinder) {
     @JavascriptInterface
     fun gen_move() {
         alphaHex.gen_move {
-            binder.show("gen: $it")
             binder.execute("genmove_ok", it)
         }
     }

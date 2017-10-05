@@ -4,6 +4,8 @@ import android.app.Activity
 import android.util.Log
 import android.webkit.WebView
 import android.widget.Toast
+import rolrence.hexgame.hex.HexMark
+import rolrence.hexgame.hex.LevelT
 import kotlin.concurrent.thread
 
 /**
@@ -11,10 +13,21 @@ import kotlin.concurrent.thread
  *
  */
 class JsBinder constructor(val content: Activity, val view: WebView) {
+    var alreadyHasJsInterface = false
+
     val functions = mutableMapOf<String, (String) -> Unit>()
 
-    init {
-        view.addJavascriptInterface(KotlinMethod(this), "kotlin")
+    fun initGameOption(size: Int = 7,
+                       first: HexMark = HexMark.HEX_MARK_VERT,
+                       ai: HexMark = HexMark.HEX_MARK_HORI,
+                       aiLevel: LevelT = LevelT.BEGINNER) {
+        if (alreadyHasJsInterface) {
+            view.removeJavascriptInterface("kotlin")
+        }
+        val kotlinMethod = KotlinMethod(this)
+        kotlinMethod.init(size, first, ai, aiLevel)
+        view.addJavascriptInterface(kotlinMethod, "kotlin")
+        alreadyHasJsInterface = true
     }
 
     fun show(str: String) = Toast.makeText(content, str, Toast.LENGTH_LONG).show()

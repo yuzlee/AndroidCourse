@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="player_list">
+        <item>用户</item>
+        <item>AI</item>
+    </string-array>
+    <string-array name="level_list">
+        <item>初级</item>
+        <item>中级</item>
+        <item>高级</item>
+        <item>专家</item>
+    </string-array>
+</resources>

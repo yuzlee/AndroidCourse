@@ -12,7 +12,7 @@ var script = '<script type="text/javascript" xlink:href="jquery.min.js"></script
            + '<script type="text/javascript" xlink:href="svg.min.js"></script>'
            + '<script type="text/javascript" xlink:href="app.js"></script>'
 
-var svg_normal = draw(500, 8, 0, style, script);
+var svg_normal = draw(500, 7, 0, style, script);
 // var svg_flat = draw_flat(500, 11, 30, style, script)
 
 var prefix = 
