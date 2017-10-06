@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:columnCount="2"
+    android:rowCount="4">
+
+    <TextView
+        android:layout_rowSpan="2"
+        android:layout_rowWeight="2"
+        android:gravity="fill"
+        android:paddingStart="20dp"
+        android:text="先手" />
+
+    <Spinner
+        android:id="@+id/spinnerWhoFirst"
+        android:layout_columnWeight="1"
+        android:layout_gravity="fill"
+        android:layout_rowSpan="2"
+        android:layout_rowWeight="2"
+        android:entries="@array/player_list"
+        android:paddingEnd="20dp" />
+
+    <TextView
+        android:layout_rowSpan="2"
+        android:layout_rowWeight="2"
+        android:gravity="fill"
+        android:paddingStart="20dp"
+        android:text="等级" />
+
+    <Spinner
+        android:id="@+id/spinnerAiLevel"
+        android:layout_gravity="fill"
+        android:layout_rowSpan="2"
+        android:layout_rowWeight="2"
+        android:entries="@array/level_list"
+        android:paddingEnd="20dp" />
+</GridLayout>
+
