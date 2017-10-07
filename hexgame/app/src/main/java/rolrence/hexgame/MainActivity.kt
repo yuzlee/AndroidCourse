@@ -57,6 +57,8 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
+        webView.loadUrl("file:///android_asset/hex_main.svg")
+
         this.dialog = makeDialog()
         initGame()
     }
@@ -84,7 +86,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun initGame() {
-        webView.loadUrl("file:///android_asset/hex_main.svg")
+        webView.reload()
+        // webView.loadUrl("file:///android_asset/hex_main.svg")
         binder?.initGameOption(ai = ai, aiLevel = level)
     }
 
