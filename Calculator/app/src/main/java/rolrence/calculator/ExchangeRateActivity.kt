@@ -8,8 +8,6 @@ import android.os.Message
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_exchange_rate.*
 import rolrence.calculator.converter.ExchangeRate
-import android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 
@@ -34,7 +32,7 @@ class ExchangeRateActivity : AppCompatActivity() {
             val list = converter.list(inputType, 1.0).map {
                 "1 $inputType = ${it.value} ${it.key}"
             }
-            listExchangeRate.adapter = ArrayAdapter<String>(
+            listRadix.adapter = ArrayAdapter<String>(
                     this@ExchangeRateActivity,
                     android.R.layout.simple_list_item_1, list)
         }

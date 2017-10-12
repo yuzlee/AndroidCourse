@@ -48,6 +48,11 @@ class MainActivity : AppCompatActivity() {
                 intent.setClass(this, ExchangeRateActivity::class.java)
                 startActivity(intent)
             }
+            R.id.itemRadixConvert -> {
+                val intent = Intent()
+                intent.setClass(this, RadixActivity::class.java)
+                startActivity(intent)
+            }
         }
         return super.onOptionsItemSelected(item)
     }

@@ -10,4 +10,9 @@
         android:id="@+id/itemExchangeRateConvert"
         app:showAsAction="never"
         android:title="汇率转换" />
+
+    <item
+        android:id="@+id/itemRadixConvert"
+        app:showAsAction="never"
+        android:title="进制转换" />
 </menu>

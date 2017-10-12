@@ -5,12 +5,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.SimpleAdapter
 import kotlinx.android.synthetic.main.activity_unit_conversion.*
 import rolrence.calculator.converter.MeasureUnit
 
@@ -24,7 +22,7 @@ class UnitConversionActivity : AppCompatActivity() {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
 
-            listExchangeRate.adapter = ArrayAdapter<String>(
+            listRadix.adapter = ArrayAdapter<String>(
                     this@UnitConversionActivity,
                     android.R.layout.simple_list_item_1, converter)
         }
