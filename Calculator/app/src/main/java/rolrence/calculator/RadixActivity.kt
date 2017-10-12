@@ -22,7 +22,11 @@ class RadixActivity : AppCompatActivity() {
     fun convert(value: String, inType: String, outType: String): String {
         val inT = radixType(inType)
         val outT = radixType(outType)
-        return Integer.valueOf(value, inT).toString(outT)
+        try {
+            return Integer.valueOf(value, inT).toString(outT)
+        } catch (e: Exception) {
+            return "NaN"
+        }
     }
 
     fun radixType(type: String) = when (type) {

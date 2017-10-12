@@ -29,7 +29,7 @@
             android:name=".ExchangeRateActivity"
             android:label="汇率转换"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".JinzhiActivity"></activity>
+        <activity android:name=".RadixActivity"></activity>
     </application>
 
 </manifest>
